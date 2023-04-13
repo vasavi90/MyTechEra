@@ -1,0 +1,30 @@
+.each-course {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+}
+.image {
+  height: 100px;
+  width: 130px;
+}
+@media screen and (min-width: 768px) {
+  .image {
+    height: 160px;
+    width: 150px;
+  }
+}
+.name{
+    font-family: "Roboto";
+    font-size: 18px;
+    color:#1e293b;
+    font-weight: 400;
+}
+@media screen and (min-width: 768px) {
+    .name{
+        font-size: 24px;
+    }
+}
+.link{
+    text-decoration: none;
+}

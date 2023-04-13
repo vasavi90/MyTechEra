@@ -1,0 +1,16 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.image {
+  height: 400px;
+  width: 450px;
+}
+@media screen and (min-width: 768px) {
+  .image {
+    height: 470px;
+    width: 500px;
+  }
+}
