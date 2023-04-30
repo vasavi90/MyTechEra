@@ -12,8 +12,8 @@ const App = () => (
   <>
     <Header />
     <Switch>
-      <Route path="/" component={Home} />
-      <Route exact path="/courses/:id" component={CourseItemDetails} />
+      <Route exact path="/" component={Home} />
+      <Route path="/courses/:id" component={CourseItemDetails} />
       <Route component={NotFound} />
     </Switch>
   </>

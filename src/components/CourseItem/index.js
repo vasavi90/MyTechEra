@@ -7,7 +7,7 @@ const CourseItem = props => {
   const {id, name, logoUrl} = coursesDetails
 
   return (
-    <li className="each-course">
+    <li>
       <Link to={`/courses/${id}`} className="link">
         <img src={logoUrl} alt={name} className="image" />
         <p className="name">{name}</p>

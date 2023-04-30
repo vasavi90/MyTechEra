@@ -25,37 +25,29 @@ class Home extends Component {
       logoUrl: eachObject.logo_url,
     }))
 
-    if (response.ok === true) {
-      this.setState({
-        isLoading: false,
-        coursesList: formattedData,
-      })
-    }
-  }
-
-  renderLoader = () => (
-    <div data-testid="loader" className="loader-container">
-      <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-    </div>
-  )
-
-  renderCoursesList = () => {
-    const {coursesList} = this.state
-    return (
-      <ul className="courses-container">
-        {coursesList.map(eachCourse => (
-          <CourseItem key={eachCourse.id} coursesDetails={eachCourse} />
-        ))}
-      </ul>
-    )
+    this.setState({
+      coursesList: formattedData,
+      isLoading: false,
+    })
   }
 
   render() {
-    const {isLoading} = this.state
+    const {coursesList, isLoading} = this.state
+
     return (
       <div className="app-container">
         <h1 className="heading">Courses</h1>
-        {isLoading ? this.renderLoader() : this.renderCoursesList()}
+        {isLoading ? (
+          <div data-testid="loader" className="loader-container">
+            <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
+          </div>
+        ) : (
+          <ul>
+            {coursesList.map(eachCourse => (
+              <CourseItem key={eachCourse.id} coursesDetails={eachCourse} />
+            ))}
+          </ul>
+        )}
       </div>
     )
   }

@@ -22,29 +22,30 @@ class CourseItemDetails extends Component {
     const data = await response.json()
 
     const updatedData = {
-      id: data.course_details.id,
-      name: data.course_details.name,
-      imageUrl: data.course_details.image_url,
-      description: data.course_details.description,
+      courseDetails: {
+        id: data.course_details.id,
+        name: data.course_details.name,
+        imageUrl: data.course_details.image_url,
+        description: data.course_details.description,
+      },
     }
 
-    if (response.ok === true) {
-      this.setState({
-        isLoading: false,
-        courseObject: updatedData,
-      })
-    }
+    this.setState({
+      isLoading: false,
+      courseObject: updatedData,
+    })
   }
 
   renderLoader = () => (
     <div data-testid="loader" className="loader-container">
-      <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+      <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
     </div>
   )
 
   renderCourseDetails = () => {
     const {courseObject} = this.state
-    const {name, imageUrl, description} = courseObject
+    const {courseDetails} = courseObject
+    const {name, imageUrl, description} = courseDetails
 
     return (
       <div className="details-container">
