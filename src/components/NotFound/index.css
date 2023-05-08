@@ -1,13 +1,13 @@
-.counter {
+
+@media screen and (min-width: 768px) {
+    .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.image {
-  height: 400px;
-  width: 450px;
 }
+
 @media screen and (min-width: 768px) {
   .image {
     height: 470px;

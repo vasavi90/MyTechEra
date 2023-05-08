@@ -1,7 +1,9 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 
+import Header from '../Header'
 import CourseItem from '../CourseItem'
+import Failure from '../Failure'
 
 import './index.css'
 
@@ -25,30 +27,48 @@ class Home extends Component {
       logoUrl: eachObject.logo_url,
     }))
 
-    this.setState({
-      coursesList: formattedData,
-      isLoading: false,
-    })
+    if (response.ok === true) {
+      this.setState({
+        coursesList: formattedData,
+        isLoading: false,
+      })
+    } else {
+      this.failureView()
+    }
+  }
+
+  failureView = () => <Failure />
+
+  renderLoader = () => (
+    <div data-testid="loader">
+      <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
+    </div>
+  )
+
+  renderCourses = () => {
+    const {coursesList} = this.state
+    return (
+      <>
+        <h1 className="heading ">Courses</h1>
+        <ul className="courses-list">
+          {coursesList.map(eachCourse => (
+            <CourseItem key={eachCourse.id} coursesDetails={eachCourse} />
+          ))}
+        </ul>
+      </>
+    )
   }
 
   render() {
-    const {coursesList, isLoading} = this.state
+    const {isLoading} = this.state
 
     return (
-      <div className="app-container">
-        <h1 className="heading">Courses</h1>
-        {isLoading ? (
-          <div data-testid="loader" className="loader-container">
-            <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
-          </div>
-        ) : (
-          <ul>
-            {coursesList.map(eachCourse => (
-              <CourseItem key={eachCourse.id} coursesDetails={eachCourse} />
-            ))}
-          </ul>
-        )}
-      </div>
+      <>
+        <Header />
+        <div className="app-container">
+          {isLoading ? this.renderLoader() : this.renderCourses()}
+        </div>
+      </>
     )
   }
 }

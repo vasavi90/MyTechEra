@@ -1,6 +1,8 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 
+import Failure from '../Failure'
+
 import './index.css'
 
 class CourseItemDetails extends Component {
@@ -30,11 +32,17 @@ class CourseItemDetails extends Component {
       },
     }
 
-    this.setState({
-      isLoading: false,
-      courseObject: updatedData,
-    })
+    if (response.ok === true) {
+      this.setState({
+        isLoading: false,
+        courseObject: updatedData,
+      })
+    } else {
+      this.failureView()
+    }
   }
+
+  failureView = () => <Failure />
 
   renderLoader = () => (
     <div data-testid="loader" className="loader-container">

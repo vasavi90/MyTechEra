@@ -1,5 +1,4 @@
 import {Link} from 'react-router-dom'
-
 import './index.css'
 
 const CourseItem = props => {
@@ -7,9 +6,9 @@ const CourseItem = props => {
   const {id, name, logoUrl} = coursesDetails
 
   return (
-    <li>
+    <li className="each-course">
       <Link to={`/courses/${id}`} className="link">
-        <img src={logoUrl} alt={name} className="image" />
+        <img src={logoUrl} alt={name} />
         <p className="name">{name}</p>
       </Link>
     </li>
