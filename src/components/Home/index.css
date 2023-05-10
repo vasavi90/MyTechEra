@@ -2,6 +2,7 @@
   .app-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
@@ -25,5 +26,36 @@
 
     flex-wrap: wrap;
     width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .failure-image {
+    height: 100px;
+    width: 90px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .heading-two {
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 30px;
+    color: #64748b;
+  }
+}
+@media screen and (min-width: 768px) {
+  .text {
+    color: #64748b;
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 25px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .button {
+    background-color: #4656a1;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100px;
   }
 }

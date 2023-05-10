@@ -1,15 +1,20 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 
-import Header from '../Header'
 import CourseItem from '../CourseItem'
-import Failure from '../Failure'
 
 import './index.css'
 
+const apiStatusConstants = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
+}
+
 class Home extends Component {
   state = {
-    isLoading: true,
+    apiStatus: apiStatusConstants.initial,
     coursesList: [],
   }
 
@@ -18,6 +23,10 @@ class Home extends Component {
   }
 
   getCourses = async () => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+    })
+
     const response = await fetch('https://apis.ccbp.in/te/courses')
     const data = await response.json()
 
@@ -30,46 +39,70 @@ class Home extends Component {
     if (response.ok === true) {
       this.setState({
         coursesList: formattedData,
-        isLoading: false,
+        apiStatus: apiStatusConstants.success,
       })
     } else {
-      this.failureView()
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+      })
     }
   }
 
-  failureView = () => <Failure />
-
-  renderLoader = () => (
-    <div data-testid="loader">
-      <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
-    </div>
-  )
-
-  renderCourses = () => {
+  renderCoursesView = () => {
     const {coursesList} = this.state
+
     return (
-      <>
+      <div className="app-container">
         <h1 className="heading ">Courses</h1>
         <ul className="courses-list">
           {coursesList.map(eachCourse => (
             <CourseItem key={eachCourse.id} coursesDetails={eachCourse} />
           ))}
         </ul>
-      </>
+      </div>
     )
   }
 
-  render() {
-    const {isLoading} = this.state
+  goHome = () => {
+    const {history} = this.props
+    history.replace('/Home')
+  }
 
-    return (
-      <>
-        <Header />
-        <div className="app-container">
-          {isLoading ? this.renderLoader() : this.renderCourses()}
-        </div>
-      </>
-    )
+  renderFailureView = () => (
+    <div className="app-container">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
+        alt="failure view"
+        className="failure-image"
+      />
+      <h1 className="heading-two">Oops! Something Went Wrong</h1>
+      <p className="text">
+        We cannot seem to find the page you are looking for.
+      </p>
+      <button type="button" className="button" onClick={this.goHome}>
+        Retry
+      </button>
+    </div>
+  )
+
+  renderLoadingView = () => (
+    <div data-testid="loader" className="app-container">
+      <Loader type="ThreeDots" color="#00BFFF" height={50} width={50} />
+    </div>
+  )
+
+  render() {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.success:
+        return this.renderCoursesView()
+      case apiStatusConstants.failure:
+        return this.renderFailureView()
+      case apiStatusConstants.inProgress:
+        return this.renderLoadingView()
+      default:
+        return null
+    }
   }
 }
 

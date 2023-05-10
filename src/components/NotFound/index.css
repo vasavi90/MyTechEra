@@ -1,16 +1,31 @@
-
 @media screen and (min-width: 768px) {
-    .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media screen and (min-width: 768px) {
   .image {
     height: 470px;
     width: 500px;
+  }
+}
+@media screen and(min-width:768px) {
+  .heading-notfound {
+    font-family: 'Roboto';
+    color: #475569;
+    font-size: 38px;
+    font-weight: bold;
+  }
+}
+@media screen and (min-width: 768px) {
+  text {
+    color: #64748b;
+    font-family: 'Roboto';
+    font-size: 34px;
+    font-weight: 500;
   }
 }
